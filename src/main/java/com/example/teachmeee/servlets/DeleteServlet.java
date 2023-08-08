@@ -2,7 +2,6 @@ package com.example.teachmeee.servlets;
 
 import com.example.teachmeee.DAO.ProductDAO;
 import com.example.teachmeee.DTO.ProductDTO;
-import com.example.teachmeee.Mapper.ProductMapper;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
