@@ -32,7 +32,7 @@ public class AuthDAO {
         } catch (NullPointerException | SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return user;
     }
 
     public static String getLoginById(Integer id) {

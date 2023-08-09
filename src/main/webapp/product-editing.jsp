@@ -16,9 +16,8 @@
 <h1>Редактирование товара</h1>
 <%
     Integer userId = CheckAuth.checkAuth(request, response);
-%>
-<%
     ProductDTO product = ProductDAO.getProduct(Integer.parseInt(request.getParameter("id")));
+    if(userId!= product.getUser_id()) response.sendRedirect("/products");
 %>
 <form action="/EditingServlet" method="post">
     <input hidden="hidden" name="id" value=<%=product.getId()%>>

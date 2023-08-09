@@ -15,11 +15,10 @@
     <title>Товары</title>
 </head>
 <body>
-<h1>Товары на складе</h1><br>
+<h1>Товары на складе</h1>
+<a href="/AuthServlet">Выйти</a><br><br>
 <%
     Integer userId = CheckAuth.checkAuth(request, response);
-%>
-<%
     List<ProductDTO> products = ProductDAO.getProducts();
     for(ProductDTO product: products) {
         out.print("<b>Название: </b>" + product.getName() + "<br>");
