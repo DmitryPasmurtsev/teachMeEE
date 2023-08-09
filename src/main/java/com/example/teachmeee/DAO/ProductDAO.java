@@ -24,6 +24,7 @@ public class ProductDAO {
                 product.setName(resultSet.getString(2));
                 product.setAmount(resultSet.getInt(3));
                 product.setPrice(resultSet.getDouble(4));
+                product.setUser_id(resultSet.getInt(5));
                 products.add(product);
             }
         } catch (NullPointerException | SQLException e) {
@@ -43,6 +44,7 @@ public class ProductDAO {
                 product.setName(resultSet.getString(2));
                 product.setAmount(resultSet.getInt(3));
                 product.setPrice(resultSet.getDouble(4));
+                product.setUser_id(resultSet.getInt(5));
             }
         } catch (NullPointerException | SQLException e) {
             e.printStackTrace();
@@ -52,11 +54,12 @@ public class ProductDAO {
 
     public static void updateProduct(ProductDTO productDTO, Integer id) {
         try {
-            PreparedStatement statement = ConnectorDB.CONNECTION.prepareStatement("UPDATE products SET name=?,amount=?,price=? WHERE id=?");
+            PreparedStatement statement = ConnectorDB.CONNECTION.prepareStatement("UPDATE products SET name=?,amount=?,price=?,user_id=? WHERE id=?");
             statement.setString(1, productDTO.getName());
             statement.setInt(2, productDTO.getAmount());
             statement.setDouble(3, productDTO.getPrice());
-            statement.setInt(4, id);
+            statement.setInt(4, productDTO.getUser_id());
+            statement.setInt(5, id);
             statement.executeUpdate();
         } catch (NullPointerException | SQLException e) {
             e.printStackTrace();
@@ -65,10 +68,11 @@ public class ProductDAO {
 
     public static void addProduct(ProductDTO productDTO) {
         try {
-            PreparedStatement statement = ConnectorDB.CONNECTION.prepareStatement("INSERT INTO products (name, amount, price) Values (?, ?, ?)");
+            PreparedStatement statement = ConnectorDB.CONNECTION.prepareStatement("INSERT INTO products (name, amount, price, user_id) Values (?, ?, ?, ?)");
             statement.setString(1, productDTO.getName());
             statement.setInt(2, productDTO.getAmount());
             statement.setDouble(3, productDTO.getPrice());
+            statement.setInt(4, productDTO.getUser_id());
             statement.executeUpdate();
         } catch (NullPointerException | SQLException e) {
             e.printStackTrace();

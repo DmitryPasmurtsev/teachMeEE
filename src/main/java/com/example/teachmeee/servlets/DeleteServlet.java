@@ -1,5 +1,6 @@
 package com.example.teachmeee.servlets;
 
+import com.example.teachmeee.CheckAuth;
 import com.example.teachmeee.DAO.ProductDAO;
 import com.example.teachmeee.DTO.ProductDTO;
 import jakarta.servlet.*;
@@ -13,7 +14,8 @@ public class DeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProductDAO.deleteProduct(Integer.parseInt(request.getParameter("id")));
+        if(CheckAuth.checkAuth(request, response)==Integer.parseInt(request.getParameter("user_id")))
+            ProductDAO.deleteProduct(Integer.parseInt(request.getParameter("id")));
         response.sendRedirect("/products");
     }
 }

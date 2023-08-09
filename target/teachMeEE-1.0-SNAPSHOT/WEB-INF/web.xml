@@ -11,4 +11,12 @@
         <servlet-name>ProductsJSP</servlet-name>
         <url-pattern>/products</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>LoginJSP</servlet-name>
+        <jsp-file>/login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginJSP</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
 </web-app>
