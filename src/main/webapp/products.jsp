@@ -25,7 +25,7 @@
     <input hidden="hidden" name="id" value="<%=product.getId()%>">
     <button>Редактировать</button>
 </form>
-<form action="/teachMeEE_war_exploded/DeleteServlet" method="post">
+<form action="/DeleteServlet" method="post">
     <input hidden="hidden" name="id" value="<%=product.getId()%>">
     <button>Удалить</button>
 </form><hr><br>
@@ -33,7 +33,7 @@
     }
 %>
 <h3>Добавление товара</h3>
-<form action="/teachMeEE_war_exploded/CreationServlet" method="post">
+<form action="/CreationServlet" method="post">
     <b>Название: </b><input name="name" type="text"><br><br>
     <b>Стоимость: </b><input name="price" type="number" step="0.01"><br><br>
     <b>Количество: </b><input name="amount" type="number" step="1"><br><br>

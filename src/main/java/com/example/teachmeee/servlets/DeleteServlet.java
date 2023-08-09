@@ -14,6 +14,6 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProductDAO.deleteProduct(Integer.parseInt(request.getParameter("id")));
-        response.sendRedirect("/teachMeEE_war_exploded/products");
+        response.sendRedirect("/products");
     }
 }

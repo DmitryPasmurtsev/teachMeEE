@@ -15,6 +15,6 @@ public class EditingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProductDTO product = new ProductDTO(null, (request.getParameter("name")), Integer.parseInt(request.getParameter("amount")), Double.parseDouble(request.getParameter("price")));
         ProductDAO.updateProduct(product, Integer.parseInt(request.getParameter("id")));
-        response.sendRedirect("/teachMeEE_war_exploded/products");
+        response.sendRedirect("/products");
     }
 }

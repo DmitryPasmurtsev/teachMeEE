@@ -16,7 +16,7 @@
 <%
     ProductDTO product = ProductDAO.getProduct(Integer.parseInt(request.getParameter("id")));
 %>
-<form action="/teachMeEE_war_exploded/EditingServlet" method="post">
+<form action="/EditingServlet" method="post">
     <input hidden="hidden" name="id" value=<%=product.getId()%>>
     <b>Название: </b><input name="name" value=<%=product.getName()%>><br><br>
     <b>Стоимость: </b><input name="price" value=<%=product.getPrice()%>><br><br>

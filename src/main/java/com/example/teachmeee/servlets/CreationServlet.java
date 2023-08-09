@@ -15,6 +15,6 @@ public class CreationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProductDTO product = new ProductDTO(null, (request.getParameter("name")), Integer.parseInt(request.getParameter("amount")), Double.parseDouble(request.getParameter("price")));
         ProductDAO.addProduct(product);
-        response.sendRedirect("/teachMeEE_war_exploded/products");
+        response.sendRedirect("/products");
     }
 }
