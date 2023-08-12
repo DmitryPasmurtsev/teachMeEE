@@ -12,12 +12,23 @@ import java.util.List;
 
 public class ProductDAO {
 
+    private final ConnectorDB connectorDB;
 
+    private static ProductDAO INSTANCE = null;
 
-    public static List<ProductDTO> getProducts() {
+    private ProductDAO(ConnectorDB connectorDB) {
+        this.connectorDB = connectorDB;
+    }
+
+    public static ProductDAO getInstance(ConnectorDB connectorDB) {
+        if(INSTANCE==null) INSTANCE=new ProductDAO(connectorDB);
+        return INSTANCE;
+    }
+
+    public List<ProductDTO> getProducts() {
         List<ProductDTO> products = new ArrayList<>();
         try {
-            ResultSet resultSet =ConnectorDB.CONNECTION.createStatement().executeQuery("SELECT * FROM products");
+            ResultSet resultSet =connectorDB.getConnection().createStatement().executeQuery("SELECT * FROM products");
             while(resultSet.next()) {
                 ProductDTO product = new ProductDTO();
                 product.setId(resultSet.getInt(1));
@@ -33,10 +44,10 @@ public class ProductDAO {
         return products;
     }
 
-    public static ProductDTO getProduct(Integer id) {
+    public ProductDTO getProduct(Integer id) {
         ProductDTO product = new ProductDTO();
         try {
-            PreparedStatement statement = ConnectorDB.CONNECTION.prepareStatement("SELECT * FROM products WHERE id = ?");
+            PreparedStatement statement = connectorDB.getConnection().prepareStatement("SELECT * FROM products WHERE id = ?");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -52,9 +63,9 @@ public class ProductDAO {
         return product;
     }
 
-    public static void updateProduct(ProductDTO productDTO, Integer id) {
+    public void updateProduct(ProductDTO productDTO, Integer id) {
         try {
-            PreparedStatement statement = ConnectorDB.CONNECTION.prepareStatement("UPDATE products SET name=?,amount=?,price=?,user_id=? WHERE id=?");
+            PreparedStatement statement = connectorDB.getConnection().prepareStatement("UPDATE products SET name=?,amount=?,price=?,user_id=? WHERE id=?");
             statement.setString(1, productDTO.getName());
             statement.setInt(2, productDTO.getAmount());
             statement.setDouble(3, productDTO.getPrice());
@@ -66,9 +77,9 @@ public class ProductDAO {
         }
     }
 
-    public static void addProduct(ProductDTO productDTO) {
+    public void addProduct(ProductDTO productDTO) {
         try {
-            PreparedStatement statement = ConnectorDB.CONNECTION.prepareStatement("INSERT INTO products (name, amount, price, user_id) Values (?, ?, ?, ?)");
+            PreparedStatement statement = connectorDB.getConnection().prepareStatement("INSERT INTO products (name, amount, price, user_id) Values (?, ?, ?, ?)");
             statement.setString(1, productDTO.getName());
             statement.setInt(2, productDTO.getAmount());
             statement.setDouble(3, productDTO.getPrice());
@@ -79,9 +90,9 @@ public class ProductDAO {
         }
     }
 
-    public static void deleteProduct(Integer id) {
+    public void deleteProduct(Integer id) {
         try {
-            PreparedStatement statement = ConnectorDB.CONNECTION.prepareStatement("DELETE FROM products WHERE id = ?");
+            PreparedStatement statement = connectorDB.getConnection().prepareStatement("DELETE FROM products WHERE id = ?");
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (NullPointerException | SQLException e) {
