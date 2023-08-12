@@ -25,7 +25,7 @@ class AuthServletTest {
     @Test
     void exitMethodTest() throws ServletException, IOException {
         servlet.doGet(request, response);
-        verify(response).addCookie(Mockito.any());
+        verify(response).addCookie(any());
         verify(response).sendRedirect("/login");
     }
 

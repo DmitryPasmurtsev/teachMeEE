@@ -16,7 +16,7 @@ public class ProductDAO {
 
     private static ProductDAO INSTANCE = null;
 
-    private ProductDAO(ConnectorDB connectorDB) {
+    ProductDAO(ConnectorDB connectorDB) {
         this.connectorDB = connectorDB;
     }
 
@@ -45,22 +45,23 @@ public class ProductDAO {
     }
 
     public ProductDTO getProduct(Integer id) {
-        ProductDTO product = new ProductDTO();
         try {
+            ProductDTO product = new ProductDTO();
             PreparedStatement statement = connectorDB.getConnection().prepareStatement("SELECT * FROM products WHERE id = ?");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 product.setId(resultSet.getInt(1));
                 product.setName(resultSet.getString(2));
                 product.setAmount(resultSet.getInt(3));
                 product.setPrice(resultSet.getDouble(4));
                 product.setUser_id(resultSet.getInt(5));
+                return product;
             }
         } catch (NullPointerException | SQLException e) {
             e.printStackTrace();
         }
-        return product;
+        return null;
     }
 
     public void updateProduct(ProductDTO productDTO, Integer id) {
